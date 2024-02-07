@@ -3,80 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Textbook Information</title>
+    <title>Textbook Management System</title>
+    <script src="main.js" defer></script>
 </head>
 <body>
-    <h1>Textbook Information</h1>
-    
-    <!-- Form for Instructor to enter textbook information -->
-    <h2>Instructor: Enter Textbook Information</h2>
-    <form id="instructorForm" action="index.php" method="post">
-        <label for="firstname">First Name: </label>
-        <input type="text" id="firstname" required><br>
-
-        <label for="lastname">Last Name: </label>
-        <input type="text" id="lastname" required><br>
-
-        <label for="book1Title">Book 1 Title:</label>
-        <input type="text" id="book1Title" required><br>
-        
-        <label for="book1Publisher">Book 1 Publisher:</label>
-        <input type="text" id="book1Publisher" required><br>
-        
-        <label for="book1Edition">Book 1 Edition:</label>
-        <input type="number" id="book1Edition" required><br>
-        
-        <label for="book1Date">Book 1 Date:</label>
-        <input type="number" id="book1Date" required><br>
-        
-        <label for="book2Title">Book 2 Title:</label>
-        <input type="text" id="book2Title"><br>
-        
-        <label for="book2Publisher">Book 2 Publisher:</label>
-        <input type="text" id="book2Publisher"><br>
-        
-        <label for="book2Edition">Book 2 Edition:</label>
-        <input type="number" id="book2Edition"><br>
-        
-        <label for="book2Date">Book 2 Date:</label>
-        <input type="number" id="book2Date"><br>
-        
-        <button type="button" onclick=submitFormData()>Submit</button>
+    <h1>Textbook Management System</h1>
+    <h2>Instructor Entry</h2>
+    <form id="instructorForm">
+        <label for="course">Course Name:</label><br>
+        <input type="text" id="course" name="course"><br>
+        <label for="textbook1">Textbook 1 Title:</label><br>
+        <input type="text" id="textbook1" name="textbook1"><br>
+        <label for="publisher1">Publisher 1:</label><br>
+        <input type="text" id="publisher1" name="publisher1"><br>
+        <label for="edition1">Edition 1:</label><br>
+        <input type="number" id="edition1" name="edition1"><br>
+        <label for="printingDate1">Printing Date 1:</label><br>
+        <input type="number" id="printingDate1" name="printingDate1"><br>
+        <label for="textbook2">Textbook 2 Title:</label><br>
+        <input type="text" id="textbook2" name="textbook2"><br>
+        <label for="publisher2">Publisher 2:</label><br>
+        <input type="text" id="publisher2" name="publisher2"><br>
+        <label for="edition2">Edition 2:</label><br>
+        <input type="number" id="edition2" name="edition2"><br>
+        <label for="printingDate2">Printing Date 2:</label><br>
+        <input type="number" id="printingDate2" name="printingDate2"><br><br>
+        <input type="submit" value="Submit">
     </form>
-
-    <!-- Display student textbook information -->
-    <h2>Student Textbook Information</h2>
-    <div id="studentInfo"></div>
-
-    <script>
-        function submitFormData() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "index.php", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    document.getElementById("studentInfo").innerText = response.message;
-                } else {
-                console.error('Error:', xhr.status, xhr.statusText);
-                }
-            };
-            
-            var formData = {
-                firstname: document.getElementById("firstname").value,
-                lastname: document.getElementById("lastname").value,
-                book1Title: document.getElementById("book1Title").value,
-                book1Publisher: document.getElementById("book1Publisher").value,
-                book1Edition: document.getElementById("book1Edition").value,
-                book1Date: document.getElementById("book1Date").value,
-                book2Title: document.getElementById("book2Title").value,
-                book2Publisher: document.getElementById("book2Publisher").value,
-                book2Edition: document.getElementById("book2Edition").value,
-                book2Date: document.getElementById("book2Date").value,
-            };
-
-            xhr.send(JSON.stringify(formData));
-        }
-    </script>
+    <hr>
+    <h2>Student Entry</h2>
+    <form id="studentForm">
+        <label for="studentName">Student Name:</label><br>
+        <input type="text" id="studentName" name="studentName"><br>
+        <label for="courseName">Course Name:</label><br>
+        <input type="text" id="courseName" name="courseName"><br>
+        <label for="studentTextbook1">Textbook 1 Title:</label><br>
+        <input type="text" id="studentTextbook1" name="studentTextbook1"><br>
+        <label for="studentPublisher1">Publisher 1:</label><br>
+        <input type="text" id="studentPublisher1" name="studentPublisher1"><br>
+        <label for="studentEdition1">Edition 1:</label><br>
+        <input type="number" id="studentEdition1" name="studentEdition1"><br>
+        <label for="studentPrintingDate1">Printing Date 1:</label><br>
+        <input type="number" id="studentPrintingDate1" name="studentPrintingDate1"><br>
+        <label for="studentTextbook2">Textbook 2 Title:</label><br>
+        <input type="text" id="studentTextbook2" name="studentTextbook2"><br>
+        <label for="studentPublisher2">Publisher 2:</label><br>
+        <input type="text" id="studentPublisher2" name="studentPublisher2"><br>
+        <label for="studentEdition2">Edition 2:</label><br>
+        <input type="number" id="studentEdition2" name="studentEdition2"><br>
+        <label for="studentPrintingDate2">Printing Date 2:</label><br>
+        <input type="number" id="studentPrintingDate2" name="studentPrintingDate2"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <hr>
+    <h2>Textbook Information</h2>
+    <div id="textbookInfo"></div>
 </body>
 </html>
