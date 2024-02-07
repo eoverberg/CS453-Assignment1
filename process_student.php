@@ -1,4 +1,7 @@
 <?php
+
+include 'data.php'
+
 // Retrieve student data from the form
 $studentName = $_POST['studentName'];
 $courseName = $_POST['courseName'];
@@ -11,25 +14,7 @@ $studentPublisher2 = $_POST['studentPublisher2'];
 $studentEdition2 = $_POST['studentEdition2'];
 $studentPrintingDate2 = $_POST['studentPrintingDate2'];
 
-// Sample "fake" database of instructor data (you can implement this as needed)
-$instructorData = [
-    'course' => 'Sample Course',
-    'textbooks' => [
-        [
-            'title' => 'Sample Textbook 1',
-            'publisher' => 'Sample Publisher',
-            'edition' => 1,
-            'printingDate' => 2020
-        ],
-        [
-            'title' => 'Sample Textbook 2',
-            'publisher' => 'Sample Publisher',
-            'edition' => 2,
-            'printingDate' => 2022
-        ]
-    ]
-];
-
+$decodedInstructor = json_decode($instructorData, true);
 // Processing student data
 $studentData = [
     'studentName' => $studentName,
@@ -49,6 +34,17 @@ $studentData = [
         ]
     ]
 ];
+// Format textbook information for display
+$textbookInfoHTML = '<h3>Textbook Information</h3>';
+foreach ($studentData as $student) {
+    $textbookInfoHTML .= '<h4>' . $student['studentName'] . ' - ' . $student['courseName'] . '</h4>';
+    foreach ($student['textbooks'] as $textbook) {
+        $textbookInfoHTML .= '<p>Title: ' . $textbook['title'] . '<br>';
+        $textbookInfoHTML .= 'Publisher: ' . $textbook['publisher'] . '<br>';
+        $textbookInfoHTML .= 'Edition: ' . $textbook['edition'] . '<br>';
+        $textbookInfoHTML .= 'Printing Date: ' . $textbook['printingDate'] . '</p>';
+    }
+}
 
 // Check if student's textbooks match the instructor's textbooks
 foreach ($instructorData['textbooks'] as $key => $textbook) {
@@ -65,8 +61,10 @@ if ($studentData['textbooks'][0]['title'] === $studentData['textbooks'][1]['titl
     echo "Warning: Student has different editions for the same textbook.\n";
 }
 
-// Further processing logic can be added here, such as storing the data in a file or database.
-
+// For example, if you want to log the data to a file:
+    $logFile = 'data.php';
+    $dataString = json_encode($studentData) . PHP_EQL;
+    file_put_contents($logFile, $dataString, FILE_APPEND);
 // Respond with a success message or any other relevant response
 echo "Student data processed successfully.";
 ?>
