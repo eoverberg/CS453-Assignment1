@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 
 // Function to validate textbook data
 function validateTextbook($title, $publisher, $edition, $date) {
@@ -19,45 +20,10 @@ function validateTextbook($title, $publisher, $edition, $date) {
 
 // Function to handle student data submission
 function handleStudentData($data) {
-    // Retrieve existing student data from file
-    $students = [];
-    if (file_exists('students.json')) {
-        $students = json_decode(file_get_contents('students.json'), true);
-    }
-
     // Check if textbook information matches for students in the same course
-    foreach ($students as $student) {
-        foreach ($student['textbooks'] as $textbook) {
-            if ($textbook['title'] != $data['book1Title'] || $textbook['edition'] != $data['book1Edition']) {
-                return "Error: Student(s) have the wrong textbook or wrong edition of the text.";
-            }
-        }
-    }
-
-    // Add new student data
-    $students[] = [
-        'firstname' => $data['firstname'],
-        'lastname' => $data['lastname'],
-        'textbooks' => [
-            [
-                'title' => $data['book1Title'],
-                'publisher' => $data['book1Publisher'],
-                'edition' => $data['book1Edition'],
-                'date' => $data['book1Date']
-            ],
-            [
-                'title' => $data['book2Title'],
-                'publisher' => $data['book2Publisher'],
-                'edition' => $data['book2Edition'],
-                'date' => $data['book2Date']
-            ]
-        ]
-    ];
-
-    // Save updated student data to file
-    file_put_contents('students.json', json_encode($students));
-
-    return "Student data saved successfully.";
+    // You can add more checks and validations as per your requirement
+    // Here, we assume basic validation and just echo the received data
+    return "Student data received: " . json_encode($data);
 }
 
 // Handle POST request
