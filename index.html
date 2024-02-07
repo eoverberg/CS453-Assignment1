@@ -11,6 +11,12 @@
     <!-- Form for Instructor to enter textbook information -->
     <h2>Instructor: Enter Textbook Information</h2>
     <form id="instructorForm">
+        <label for="firstname">First Name: </label>
+        <input type="text" id="firstname" required>
+
+        <label for="lastname">Last Name: </label>
+        <input type="text" id="lastname" required>
+
         <label for="book1Title">Book 1 Title:</label>
         <input type="text" id="book1Title" required><br>
         
@@ -45,7 +51,7 @@
     <script>
         function submitFormData() {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "server.php", true);
+            xhr.open("POST", "index.php", true);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
