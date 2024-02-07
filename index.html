@@ -10,12 +10,12 @@
     
     <!-- Form for Instructor to enter textbook information -->
     <h2>Instructor: Enter Textbook Information</h2>
-    <form id="instructorForm">
+    <form id="instructorForm" action="index.php" method="post">
         <label for="firstname">First Name: </label>
-        <input type="text" id="firstname" required>
+        <input type="text" id="firstname" required><br>
 
         <label for="lastname">Last Name: </label>
-        <input type="text" id="lastname" required>
+        <input type="text" id="lastname" required><br>
 
         <label for="book1Title">Book 1 Title:</label>
         <input type="text" id="book1Title" required><br>
@@ -41,7 +41,7 @@
         <label for="book2Date">Book 2 Date:</label>
         <input type="number" id="book2Date"><br>
         
-        <button type="button" onclick="submitFormData()">Submit</button>
+        <button type="button" onclick=submitFormData()>Submit</button>
     </form>
 
     <!-- Display student textbook information -->
@@ -57,10 +57,14 @@
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
                     document.getElementById("studentInfo").innerText = response.message;
+                } else {
+                console.error('Error:', xhr.status, xhr.statusText);
                 }
             };
             
             var formData = {
+                firstname: document.getElementById("firstname").value,
+                lastname: document.getElementById("lastname").value,
                 book1Title: document.getElementById("book1Title").value,
                 book1Publisher: document.getElementById("book1Publisher").value,
                 book1Edition: document.getElementById("book1Edition").value,

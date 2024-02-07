@@ -10,16 +10,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'lastname' => $_POST['lastname'],
         'books' => [
             [
-                'title' => $_POST['book_title_1'],
-                'publisher' => $_POST['book_publisher_1'],
-                'edition' => $_POST['book_edition_1'],
-                'printing_date' => $_POST['book_printing_date_1']
+                'title' => $_POST['book1Title'],
+                'publisher' => $_POST['book1Publisher'],
+                'edition' => $_POST['book1Edition'],
+                'printing_date' => $_POST['book1Date']
             ],
             [
-                'title' => $_POST['book_title_2'],
-                'publisher' => $_POST['book_publisher_2'],
-                'edition' => $_POST['book_edition_2'],
-                'printing_date' => $_POST['book_printing_date_2']
+                'title' => $_POST['book2Title'],
+                'publisher' => $_POST['book2Publisher'],
+                'edition' => $_POST['book2Edition'],
+                'printing_date' => $_POST['book2Date']
             ]
         ]
     ];
@@ -30,7 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check for textbook information validity
     // You can implement your validation logic here
 
-    // Output response
-    echo "Student data submitted successfully!";
+    // Return JSON response
+    header('Content-Type: application/json');
+    echo json_encode(['message' => 'Student data submitted successfully!']);
+    exit;
 }
 ?>
