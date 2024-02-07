@@ -1,46 +1,36 @@
 <?php
-header('Content-Type: application/json');
+// Array to simulate database
+$students = [];
 
-// Function to validate textbook data
-function validateTextbook($title, $publisher, $edition, $date) {
-    // Validate edition (assuming it should be a positive integer)
-    if (!is_numeric($edition) || $edition <= 0 || intval($edition) != $edition) {
-        return false;
-    }
+// Process form data
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve form data
+    $studentData = [
+        'firstname' => $_POST['firstname'],
+        'lastname' => $_POST['lastname'],
+        'books' => [
+            [
+                'title' => $_POST['book_title_1'],
+                'publisher' => $_POST['book_publisher_1'],
+                'edition' => $_POST['book_edition_1'],
+                'printing_date' => $_POST['book_printing_date_1']
+            ],
+            [
+                'title' => $_POST['book_title_2'],
+                'publisher' => $_POST['book_publisher_2'],
+                'edition' => $_POST['book_edition_2'],
+                'printing_date' => $_POST['book_printing_date_2']
+            ]
+        ]
+    ];
 
-    // Validate date (assuming it should be a valid year)
-    if (!is_numeric($date) || strlen($date) !== 4 || intval($date) < 1000 || intval($date) > date('Y')) {
-        return false;
-    }
+    // Add student data to the array
+    $students[] = $studentData;
 
-    // Additional validations can be added for publisher and title if needed
+    // Check for textbook information validity
+    // You can implement your validation logic here
 
-    return true;
-}
-
-// Function to handle student data submission
-function handleStudentData($data) {
-    // Check if textbook information matches for students in the same course
-    // You can add more checks and validations as per your requirement
-    // Here, we assume basic validation and just echo the received data
-    return "Student data received: " . json_encode($data);
-}
-
-// Handle POST request
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get JSON data from request body
-    $requestData = json_decode(file_get_contents("php://input"), true);
-
-    // Validate textbook data
-    $validTextbook1 = validateTextbook($requestData['book1Title'], $requestData['book1Publisher'], $requestData['book1Edition'], $requestData['book1Date']);
-    $validTextbook2 = validateTextbook($requestData['book2Title'], $requestData['book2Publisher'], $requestData['book2Edition'], $requestData['book2Date']);
-
-    if (!$validTextbook1 || !$validTextbook2) {
-        echo json_encode(["message" => "Error: Invalid textbook information."]);
-    } else {
-        // Handle student data
-        $response = handleStudentData($requestData);
-        echo json_encode(["message" => $response]);
-    }
+    // Output response
+    echo "Student data submitted successfully!";
 }
 ?>
