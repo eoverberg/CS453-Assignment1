@@ -1,6 +1,5 @@
 <?php
 
-include 'data.php';
 
 // Retrieve student data from the form
 $studentName = $_POST['studentName'];
@@ -13,8 +12,8 @@ $studentTextbook2 = $_POST['studentTextbook2'];
 $studentPublisher2 = $_POST['studentPublisher2'];
 $studentEdition2 = $_POST['studentEdition2'];
 $studentPrintingDate2 = $_POST['studentPrintingDate2'];
-
-$decodedInstructor = json_decode($instructorData, true);
+$jsonData = file_get_contents('data.json');
+$instructorData = json_decode($jsonData, true);
 // Processing student data
 $studentData = [
     'studentName' => $studentName,
