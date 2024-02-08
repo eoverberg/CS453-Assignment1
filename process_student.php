@@ -12,7 +12,7 @@ $studentTextbook2 = $_POST['studentTextbook2'];
 $studentPublisher2 = $_POST['studentPublisher2'];
 $studentEdition2 = $_POST['studentEdition2'];
 $studentPrintingDate2 = $_POST['studentPrintingDate2'];
-$jsonData = file_get_contents('data.json');
+$jsonData = file_get_contents('instructordata.json');
 $instructorData = json_decode($jsonData, true);
 // Processing student data
 $studentData = [
@@ -61,7 +61,7 @@ if ($studentData['textbooks'][0]['title'] === $studentData['textbooks'][1]['titl
 }
 
 // For example, if you want to log the data to a file:
-    $logFile = 'data.json';
+    $logFile = 'studentdata.json';
     $dataString = json_encode($studentData) . PHP_EOL;
     file_put_contents($logFile, $dataString, FILE_APPEND);
 // Respond with a success message or any other relevant response

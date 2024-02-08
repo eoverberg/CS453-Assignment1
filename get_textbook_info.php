@@ -2,7 +2,7 @@
 // Include the file where textbook data is stored
 
 // Format textbook information for display
-$studentData = file_get_contents("data.json");
+$studentData = file_get_contents("studentdata.json");
 $decodedStudentData = json_decode($studentData, true);
 $textbookInfoHTML = '<h4>' . $decodedStudentData['studentName'] . ' - ' . $decodedStudentData['courseName'] . '</h4>';
 foreach ($decodedStudentData['textbooks'] as $textbook) {

@@ -35,7 +35,7 @@ $instructorData = [
 // Further processing logic can be added here, such as storing the data in a file or database.
 
 // For example, if you want to log the data to a file:
-$logFile = 'data.json';
+$logFile = 'instructordata.json';
 $dataString = json_encode($instructorData) . PHP_EOL; // Add end of line to separate appended data
 file_put_contents($logFile, $dataString, FILE_APPEND);
 
