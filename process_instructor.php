@@ -1,43 +1,44 @@
 <?php
 // Retrieve instructor data from the form
 $course = $_POST['course'];
-$textbook1 = $_POST['textbook1'];
-$publisher1 = $_POST['publisher1'];
-$edition1 = $_POST['edition1'];
-$printingDate1 = $_POST['printingDate1'];
-$textbook2 = $_POST['textbook2'];
-$publisher2 = $_POST['publisher2'];
-$edition2 = $_POST['edition2'];
-$printingDate2 = $_POST['printingDate2'];
+$textbooks = [];
 
-// You should implement further processing logic here, like updating the "fake" database.
-// For simplicity, let's assume the data is stored in an array.
+// Extract textbook information dynamically
+for ($i = 1; $i <= 2; $i++) {
+    $textbook = [
+        'title' => $_POST["textbook$i"],
+        'publisher' => $_POST["publisher$i"],
+        'edition' => $_POST["edition$i"],
+        'printingDate' => $_POST["printingDate$i"]
+    ];
+    $textbooks[] = $textbook;
+}
 
-// For example, assuming there's an array to hold the instructor's data:
+// Prepare instructor data
 $instructorData = [
     'course' => $course,
-    'textbooks' => [
-        [
-            'title' => $textbook1,
-            'publisher' => $publisher1,
-            'edition' => $edition1,
-            'printingDate' => $printingDate1
-        ],
-        [
-            'title' => $textbook2,
-            'publisher' => $publisher2,
-            'edition' => $edition2,
-            'printingDate' => $printingDate2
-        ]
-    ]
+    'textbooks' => $textbooks
 ];
 
-// Further processing logic can be added here, such as storing the data in a file or database.
+// Encode instructor data to JSON format
+$jsonInstructorData = json_encode($instructorData);
 
-// For example, if you want to log the data to a file:
-$logFile = 'instructordata.json';
-$dataString = json_encode($instructorData) . PHP_EOL; // Add end of line to separate appended data
-file_put_contents($logFile, $dataString, FILE_APPEND);
+// Determine if the file already exists
+$exists = file_exists('instructordata.json');
+
+// Open the file in append mode
+$handle = fopen('instructordata.json', 'a');
+
+// If the file exists and is not empty, add a comma separator
+if ($exists && filesize('instructordata.json') > 0) {
+    fwrite($handle, ',' . PHP_EOL);
+}
+
+// Write the instructor data to the file
+fwrite($handle, $jsonInstructorData);
+
+// Close the file handle
+fclose($handle);
 
 // Respond with a success message or any other relevant response
 echo "Instructor data processed successfully.";

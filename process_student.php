@@ -1,51 +1,31 @@
 <?php
-
-
 // Retrieve student data from the form
 $studentName = $_POST['studentName'];
 $courseName = $_POST['courseName'];
-$studentTextbook1 = $_POST['studentTextbook1'];
-$studentPublisher1 = $_POST['studentPublisher1'];
-$studentEdition1 = $_POST['studentEdition1'];
-$studentPrintingDate1 = $_POST['studentPrintingDate1'];
-$studentTextbook2 = $_POST['studentTextbook2'];
-$studentPublisher2 = $_POST['studentPublisher2'];
-$studentEdition2 = $_POST['studentEdition2'];
-$studentPrintingDate2 = $_POST['studentPrintingDate2'];
-$jsonData = file_get_contents('instructordata.json');
-$instructorData = json_decode($jsonData, true);
-// Processing student data
+$textbooks = [];
+
+// Extract textbook information dynamically
+for ($i = 1; $i <= 2; $i++) {
+    $textbook = [
+        'title' => $_POST["studentTextbook$i"],
+        'publisher' => $_POST["studentPublisher$i"],
+        'edition' => $_POST["studentEdition$i"],
+        'printingDate' => $_POST["studentPrintingDate$i"]
+    ];
+    $textbooks[] = $textbook;
+}
+
+// Prepare student data
 $studentData = [
     'studentName' => $studentName,
     'courseName' => $courseName,
-    'textbooks' => [
-        [
-            'title' => $studentTextbook1,
-            'publisher' => $studentPublisher1,
-            'edition' => $studentEdition1,
-            'printingDate' => $studentPrintingDate1
-        ],
-        [
-            'title' => $studentTextbook2,
-            'publisher' => $studentPublisher2,
-            'edition' => $studentEdition2,
-            'printingDate' => $studentPrintingDate2
-        ]
-    ]
+    'textbooks' => $textbooks
 ];
-// Format textbook information for display
-// $textbookInfoHTML = '<h3>Textbook Information</h3>';
-// var_dump($studentData);
-// $textbookInfoHTML .= '<h4>' . $studentData['studentName'] . ' - ' . $studentData['courseName'] . '</h4>';
-// foreach ($studentData['textbooks'] as $textbook) {
-//     $textbookInfoHTML .= '<p>Title: ' . $textbook['title'] . '<br>';
-//     $textbookInfoHTML .= 'Publisher: ' . $textbook['publisher'] . '<br>';
-//     $textbookInfoHTML .= 'Edition: ' . $textbook['edition'] . '<br>';
-//     $textbookInfoHTML .= 'Printing Date: ' . $textbook['printingDate'] . '</p>';
-// }
 
+// Check if the student's textbooks match the instructor's textbooks
+$jsonData = file_get_contents('instructordata.json');
+$instructorData = json_decode($jsonData, true);
 
-// Check if student's textbooks match the instructor's textbooks
 foreach ($instructorData['textbooks'] as $key => $textbook) {
     if ($textbook['title'] !== $studentData['textbooks'][$key]['title'] ||
         $textbook['edition'] !== $studentData['textbooks'][$key]['edition'] ||
@@ -54,16 +34,32 @@ foreach ($instructorData['textbooks'] as $key => $textbook) {
     }
 }
 
-// Check if student has different editions for the same textbook
+// Check if the student has different editions for the same textbook
 if ($studentData['textbooks'][0]['title'] === $studentData['textbooks'][1]['title'] &&
     $studentData['textbooks'][0]['edition'] !== $studentData['textbooks'][1]['edition']) {
     echo "Warning: Student has different editions for the same textbook.\n";
 }
 
-// For example, if you want to log the data to a file:
-    $logFile = 'studentdata.json';
-    $dataString = json_encode($studentData) . PHP_EOL;
-    file_put_contents($logFile, $dataString, FILE_APPEND);
+// Encode student data to JSON format
+$jsonStudentData = json_encode($studentData);
+
+// Determine if the file already exists
+$exists = file_exists('studentdata.json');
+
+// Open the file in append mode
+$handle = fopen('studentdata.json', 'a');
+
+// If the file exists and is not empty, add a comma separator
+if ($exists && filesize('studentdata.json') > 0) {
+    fwrite($handle, ',' . PHP_EOL);
+}
+
+// Write the student data to the file
+fwrite($handle, $jsonStudentData);
+
+// Close the file handle
+fclose($handle);
+
 // Respond with a success message or any other relevant response
 echo "Student data processed successfully.";
 ?>

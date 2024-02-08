@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log(xhr.responseText);
                     // Update textbook information after successful form submission
                     displayTextbookInfo();
+                    // Clear form fields
+                    form.reset();
                 } else {
                     console.error('Error:', xhr.status);
                 }
