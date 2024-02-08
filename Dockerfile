@@ -16,6 +16,9 @@ RUN a2enmod rewrite
 # Update Apache configuration to use .htaccess files
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
+# Change ownership of the /var/www/html directory to the www-data user and group
+RUN chown -R www-data:www-data /var/www/html
+
 # Expose port 80 to the outside world
 EXPOSE 80
 
