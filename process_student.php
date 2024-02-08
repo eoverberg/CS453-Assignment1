@@ -36,6 +36,7 @@ $studentData = [
 // Format textbook information for display
 $textbookInfoHTML = '<h3>Textbook Information</h3>';
 foreach ($studentData as $student) {
+    var_dump($studentData);
     $textbookInfoHTML .= '<h4>' . $student['studentName'] . ' - ' . $student['courseName'] . '</h4>';
     foreach ($student['textbooks'] as $textbook) {
         $textbookInfoHTML .= '<p>Title: ' . $textbook['title'] . '<br>';
@@ -61,7 +62,7 @@ if ($studentData['textbooks'][0]['title'] === $studentData['textbooks'][1]['titl
 }
 
 // For example, if you want to log the data to a file:
-    $logFile = 'data.php';
+    $logFile = 'data.json';
     $dataString = json_encode($studentData) . PHP_EOL;
     file_put_contents($logFile, $dataString, FILE_APPEND);
 // Respond with a success message or any other relevant response
