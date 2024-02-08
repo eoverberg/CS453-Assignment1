@@ -1,62 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Textbook Management System</title>
-    <script src="main.js" defer></script>
-</head>
-<body>
-    <h1>Textbook Management System</h1>
-    <h2>Instructor Entry</h2>
-    <form id="instructorForm">
-        <label for="course">Course Name:</label><br>
-        <input type="text" id="course" name="course"><br>
-        <label for="textbook1">Textbook 1 Title:</label><br>
-        <input type="text" id="textbook1" name="textbook1"><br>
-        <label for="publisher1">Publisher 1:</label><br>
-        <input type="text" id="publisher1" name="publisher1"><br>
-        <label for="edition1">Edition 1:</label><br>
-        <input type="number" id="edition1" name="edition1"><br>
-        <label for="printingDate1">Printing Date 1:</label><br>
-        <input type="number" id="printingDate1" name="printingDate1"><br>
-        <label for="textbook2">Textbook 2 Title:</label><br>
-        <input type="text" id="textbook2" name="textbook2"><br>
-        <label for="publisher2">Publisher 2:</label><br>
-        <input type="text" id="publisher2" name="publisher2"><br>
-        <label for="edition2">Edition 2:</label><br>
-        <input type="number" id="edition2" name="edition2"><br>
-        <label for="printingDate2">Printing Date 2:</label><br>
-        <input type="number" id="printingDate2" name="printingDate2"><br><br>
-        <input type="submit" value="Submit">
-    </form>
-    <hr>
-    <h2>Student Entry</h2>
-    <form id="studentForm">
-        <label for="studentName">Student Name:</label><br>
-        <input type="text" id="studentName" name="studentName"><br>
-        <label for="courseName">Course Name:</label><br>
-        <input type="text" id="courseName" name="courseName"><br>
-        <label for="studentTextbook1">Textbook 1 Title:</label><br>
-        <input type="text" id="studentTextbook1" name="studentTextbook1"><br>
-        <label for="studentPublisher1">Publisher 1:</label><br>
-        <input type="text" id="studentPublisher1" name="studentPublisher1"><br>
-        <label for="studentEdition1">Edition 1:</label><br>
-        <input type="number" id="studentEdition1" name="studentEdition1"><br>
-        <label for="studentPrintingDate1">Printing Date 1:</label><br>
-        <input type="number" id="studentPrintingDate1" name="studentPrintingDate1"><br>
-        <label for="studentTextbook2">Textbook 2 Title:</label><br>
-        <input type="text" id="studentTextbook2" name="studentTextbook2"><br>
-        <label for="studentPublisher2">Publisher 2:</label><br>
-        <input type="text" id="studentPublisher2" name="studentPublisher2"><br>
-        <label for="studentEdition2">Edition 2:</label><br>
-        <input type="number" id="studentEdition2" name="studentEdition2"><br>
-        <label for="studentPrintingDate2">Printing Date 2:</label><br>
-        <input type="number" id="studentPrintingDate2" name="studentPrintingDate2"><br><br>
-        <input type="submit" value="Submit">
-    </form>
-    <hr>
-    <h2>Textbook Information</h2>
-    <div id="textbookInfo"></div>
-</body>
-</html>
+<?php
+// Retrieve instructor data from the form
+$course = $_POST['course'];
+$textbook1 = $_POST['textbook1'];
+$publisher1 = $_POST['publisher1'];
+$edition1 = $_POST['edition1'];
+$printingDate1 = $_POST['printingDate1'];
+$textbook2 = $_POST['textbook2'];
+$publisher2 = $_POST['publisher2'];
+$edition2 = $_POST['edition2'];
+$printingDate2 = $_POST['printingDate2'];
+
+// You should implement further processing logic here, like updating the "fake" database.
+// For simplicity, let's assume the data is stored in an array.
+
+// For example, assuming there's an array to hold the instructor's data:
+$instructorData = [
+    'course' => $course,
+    'textbooks' => [
+        [
+            'title' => $textbook1,
+            'publisher' => $publisher1,
+            'edition' => $edition1,
+            'printingDate' => $printingDate1
+        ],
+        [
+            'title' => $textbook2,
+            'publisher' => $publisher2,
+            'edition' => $edition2,
+            'printingDate' => $printingDate2
+        ]
+    ]
+];
+
+// Further processing logic can be added here, such as storing the data in a file or database.
+
+// For example, if you want to log the data to a file:
+$logFile = 'data.php';
+$dataString = json_encode($instructorData) . PHP_EOL; // Add end of line to separate appended data
+file_put_contents($logFile, $dataString, FILE_APPEND);
+
+// Respond with a success message or any other relevant response
+echo "Instructor data processed successfully.";
+?>
