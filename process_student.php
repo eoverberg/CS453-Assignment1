@@ -34,15 +34,15 @@ $studentData = [
     ]
 ];
 // Format textbook information for display
-$textbookInfoHTML = '<h3>Textbook Information</h3>';
-var_dump($studentData);
-$textbookInfoHTML .= '<h4>' . $studentData['studentName'] . ' - ' . $studentData['courseName'] . '</h4>';
-foreach ($studentData['textbooks'] as $textbook) {
-    $textbookInfoHTML .= '<p>Title: ' . $textbook['title'] . '<br>';
-    $textbookInfoHTML .= 'Publisher: ' . $textbook['publisher'] . '<br>';
-    $textbookInfoHTML .= 'Edition: ' . $textbook['edition'] . '<br>';
-    $textbookInfoHTML .= 'Printing Date: ' . $textbook['printingDate'] . '</p>';
-}
+// $textbookInfoHTML = '<h3>Textbook Information</h3>';
+// var_dump($studentData);
+// $textbookInfoHTML .= '<h4>' . $studentData['studentName'] . ' - ' . $studentData['courseName'] . '</h4>';
+// foreach ($studentData['textbooks'] as $textbook) {
+//     $textbookInfoHTML .= '<p>Title: ' . $textbook['title'] . '<br>';
+//     $textbookInfoHTML .= 'Publisher: ' . $textbook['publisher'] . '<br>';
+//     $textbookInfoHTML .= 'Edition: ' . $textbook['edition'] . '<br>';
+//     $textbookInfoHTML .= 'Printing Date: ' . $textbook['printingDate'] . '</p>';
+// }
 
 
 // Check if student's textbooks match the instructor's textbooks
