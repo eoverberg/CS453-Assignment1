@@ -1,6 +1,6 @@
 <?php
 
-include 'data.php'
+include 'data.php';
 
 // Retrieve student data from the form
 $studentName = $_POST['studentName'];
@@ -63,7 +63,7 @@ if ($studentData['textbooks'][0]['title'] === $studentData['textbooks'][1]['titl
 
 // For example, if you want to log the data to a file:
     $logFile = 'data.php';
-    $dataString = json_encode($studentData) . PHP_EQL;
+    $dataString = json_encode($studentData) . PHP_EOL;
     file_put_contents($logFile, $dataString, FILE_APPEND);
 // Respond with a success message or any other relevant response
 echo "Student data processed successfully.";

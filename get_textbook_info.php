@@ -4,7 +4,7 @@ include 'data.php';
 
 // Format textbook information for display
 $textbookInfoHTML = '<h3>Textbook Information Display</h3>';
-$decodedStudentData = json_decode($studentData, true)
+$decodedStudentData = json_decode($studentData, true);
 foreach ($decodedStudentData as $student) {
     $textbookInfoHTML .= '<h4>' . $student['studentName'] . ' - ' . $student['courseName'] . '</h4>';
     foreach ($student['textbooks'] as $textbook) {
