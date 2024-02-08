@@ -24,9 +24,25 @@ $studentData = [
 
 // Check if the student's textbooks match the instructor's textbooks
 $jsonData = file_get_contents('instructordata.json');
-$instructorData = json_decode($jsonData, true);
+$lines = explode(PHP_EOL, $jsonData);
 
-foreach ($instructorData['textbooks'] as $key => $textbook) {
+// Initialize an array to store decoded data
+$decodedData = [];
+
+// Iterate over each line
+foreach ($lines as $line) {
+    // Trim the line to remove any extra whitespace
+    $line = trim($line);
+
+    // Decode the JSON data from the line and store it in the array
+    if (!empty($line)) {
+        $decodedLine = json_decode($line, true);
+        if ($decodedLine !== null) {
+            $decodedData[] = $decodedLine;
+        }
+    }
+}
+foreach ($decodedData['textbooks'] as $key => $textbook) {
     if ($textbook['title'] !== $studentData['textbooks'][$key]['title'] ||
         $textbook['edition'] !== $studentData['textbooks'][$key]['edition'] ||
         $textbook['printingDate'] !== $studentData['textbooks'][$key]['printingDate']) {
