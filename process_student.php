@@ -42,13 +42,15 @@ foreach ($lines as $line) {
         }
     }
 }
-foreach ($decodedData['textbooks'] as $key => $textbook) {
-    if ($textbook['title'] !== $studentData['textbooks'][$key]['title'] ||
-        $textbook['edition'] !== $studentData['textbooks'][$key]['edition'] ||
-        $textbook['printingDate'] !== $studentData['textbooks'][$key]['printingDate']) {
-        echo "Warning: Student's textbook information does not match instructor's for Textbook " . ($key + 1) . ".\n";
+
+    foreach ($course['textbooks'] as $key => $textbook) {
+        if ($textbook['title'] !== $studentData['textbooks'][$key]['title'] ||
+            $textbook['edition'] !== $studentData['textbooks'][$key]['edition'] ||
+            $textbook['printingDate'] !== $studentData['textbooks'][$key]['printingDate']) {
+            echo "Warning: Student's textbook information does not match instructor's for Textbook " . ($key + 1) . ".\n";
+        }
     }
-}
+
 
 // Check if the student has different editions for the same textbook
 if ($studentData['textbooks'][0]['title'] === $studentData['textbooks'][1]['title'] &&
